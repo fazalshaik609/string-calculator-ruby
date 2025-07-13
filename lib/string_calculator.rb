@@ -7,11 +7,12 @@ module StringCalculator
   end
 
   def self.split_string(string)
-    string.gsub("\n", delimiter).split(delimiter)
+    delimiter = string[0,2]
+    string.gsub("\n", delimiter(delimiter)).split(delimiter(delimiter))
   end
 
-  def self.delimiter
-    ','
+  def self.delimiter(delimiter)
+    delimiter == '//' ? ';' : ','
   end
 
 end
