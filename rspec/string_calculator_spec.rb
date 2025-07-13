@@ -35,6 +35,10 @@ RSpec.describe StringCalculator, "#add" do
     it "returns 9 for '4,2,3'" do
       expect(StringCalculator.add("4,2,3")).to eql(9)
     end
+
+    it "returns 200 for '50,50,50,50'" do
+      expect(StringCalculator.add("50,50,50,50")).to eql(200)
+    end
   end
 
 end
