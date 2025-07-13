@@ -41,4 +41,10 @@ RSpec.describe StringCalculator, "#add" do
     end
   end
 
+  context "given newlines '\n' in input string" do
+    it "supports newlines and returns 6 for '1\n2,3'" do
+      expect(StringCalculator.add("1\n2,3")).to eql(6)
+    end
+  end
+
 end
