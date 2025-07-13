@@ -8,15 +8,21 @@ RSpec.describe StringCalculator, "#add" do
     end
   end
 
-  context "given input '1'" do
+  context "given single input '1'" do
     it "should return 1" do
       expect(StringCalculator.add("1")).to eql(1)
     end
   end
 
-  context "given input '33'" do
+  context "given single input '33'" do
     it "should return 33" do
       expect(StringCalculator.add("33")).to eql(33)
+    end
+  end
+
+  context "given two inputs string" do
+    it "returns 3 for '1,2'" do
+      expect(StringCalculator.add("1,2")).to eql(3)
     end
   end
 
