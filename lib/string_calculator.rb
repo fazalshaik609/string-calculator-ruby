@@ -3,9 +3,12 @@ module StringCalculator
   def self.add(string)
     return 0 if string.empty?
     
-    number_strings = string.split(',')
-    return number_strings[0].to_i + number_strings[1].to_i if number_strings.size.eql?(2)
+    return find_numbers(string)[0] + find_numbers(string)[1] if string.include?(',')
     string.to_i
+  end
+
+  def self.find_numbers(string)
+    string.split(',').map(&:to_i)
   end
 
 end
