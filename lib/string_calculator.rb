@@ -1,1 +1,3 @@
-# StringCalculator module not defined
+module StringCalculator
+
+end
