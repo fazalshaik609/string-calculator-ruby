@@ -42,8 +42,20 @@ RSpec.describe StringCalculator, "#add" do
   end
 
   context "given newlines '\n' in input string" do
+    it "supports newlines and returns 3 for '1\n2'" do
+      expect(StringCalculator.add("1\n2")).to eql(3)
+    end
+
     it "supports newlines and returns 6 for '1\n2,3'" do
       expect(StringCalculator.add("1\n2,3")).to eql(6)
+    end
+
+    it "supports multiple newlines and returns 12 for '1\n2,3\n4\n2'" do
+      expect(StringCalculator.add("1\n2,3\n4\n2")).to eql(12)
+    end
+
+    it "supports consecutive newlines and returns 8 for '4\n0,0\n\n\n4'" do
+      expect(StringCalculator.add("4\n0,0\n\n\n4")).to eql(8)
     end
   end
 
