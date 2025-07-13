@@ -31,4 +31,10 @@ RSpec.describe StringCalculator, "#add" do
     end
   end
 
+  context "given any number of inputs string" do
+    it "returns 9 for '4,2,3'" do
+      expect(StringCalculator.add("4,2,3")).to eql(9)
+    end
+  end
+
 end
