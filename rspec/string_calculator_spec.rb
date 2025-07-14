@@ -79,4 +79,14 @@ RSpec.describe StringCalculator, "#add" do
     end
   end
 
+  context "given multiple negative numbers as input string" do
+    it "should raise RuntimeError with multiple negative numbers message" do
+      expect { StringCalculator.add("-1,-2") }.to raise_error(RuntimeError, "negative numbers not allowed -1,-2")
+    end
+
+    it "should raise negative numbers not allowed message even input string has postive numbers" do
+      expect { StringCalculator.add("-1,-8,4,6,-12") }.to raise_error(RuntimeError, "negative numbers not allowed -1,-8,-12")
+    end
+  end
+
 end

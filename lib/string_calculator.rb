@@ -2,8 +2,8 @@ module StringCalculator
 
   def self.add(string)
     return 0 if string.empty?
-    raise "negative numbers not allowed #{string}" if string.include?('-')
-    
+
+    raise_error_on_negative_numbers(string)
     split_string(string).sum(&:to_i)
   end
 
@@ -15,6 +15,15 @@ module StringCalculator
 
   def self.delimiter(extra_lines)
     extra_lines == '//' ? ';' : ','
+  end
+
+  def self.raise_error_on_negative_numbers(string)
+    if string.include?('-')
+      numbers_str_arr = string.split(',')
+      negative_numbers = numbers_str_arr.collect{|c| c if c.include? '-'}.compact.join(',')
+      
+      raise "negative numbers not allowed #{negative_numbers}" 
+    end
   end
 
 end
