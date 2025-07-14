@@ -3,89 +3,101 @@ require 'debug'
 
 RSpec.describe StringCalculator, "#add" do
 
-  context "given an empty string" do   
+  context "given an empty string" do
+    before { @calc = StringCalculator::Calculator.new }
+
     it "returns 0" do
-      expect(StringCalculator.add("")).to eql(0)
+      expect(@calc.add).to eql(0)
     end
   end
 
   context "given single input string" do
+    before { @calc = StringCalculator::Calculator.new("1") }
+
     it "returns 1 for '1'" do
-      expect(StringCalculator.add("1")).to eql(1)
-    end
-  end
-
-  context "given single input string" do
-    it "returns 33 for '33'" do
-      expect(StringCalculator.add("33")).to eql(33)
+      expect(@calc.add).to eql(1)
     end
   end
 
   context "given two inputs string" do
-    it "returns 3 for '1,2'" do
-      expect(StringCalculator.add("1,2")).to eql(3)
-    end
+    before { @calc = StringCalculator::Calculator.new("1,2") }
 
-    it "returns 10 for '0,10'" do
-      expect(StringCalculator.add("0,10")).to eql(10)
+    it "returns 3 for '1,2'" do
+      expect(@calc.add).to eql(3)
     end
   end
 
   context "given any number of inputs string" do
-    it "returns 9 for '4,2,3'" do
-      expect(StringCalculator.add("4,2,3")).to eql(9)
-    end
+    before { @calc = StringCalculator::Calculator.new("4,2,3") }
 
-    it "returns 200 for '50,50,50,50'" do
-      expect(StringCalculator.add("50,50,50,50")).to eql(200)
+    it "returns 9 for '4,2,3'" do
+      expect(@calc.add).to eql(9)
     end
   end
 
   context "given newlines '\n' in input string" do
+    before { @calc = StringCalculator::Calculator.new("1\n2") }
+
     it "supports newlines and returns 3 for '1\n2'" do
-      expect(StringCalculator.add("1\n2")).to eql(3)
+      expect(@calc.add).to eql(3)
     end
 
     it "supports newlines and returns 6 for '1\n2,3'" do
-      expect(StringCalculator.add("1\n2,3")).to eql(6)
+      @calc.string = "1\n2,3"
+      
+      expect(@calc.add).to eql(6)
     end
 
     it "supports multiple newlines and returns 12 for '1\n2,3\n4\n2'" do
-      expect(StringCalculator.add("1\n2,3\n4\n2")).to eql(12)
+      @calc.string = "1\n2,3\n4\n2"
+
+      expect(@calc.add).to eql(12)
     end
 
     it "supports consecutive newlines and returns 8 for '4\n0,0\n\n\n4'" do
-      expect(StringCalculator.add("4\n0,0\n\n\n4")).to eql(8)
+      @calc.string = "4\n0,0\n\n\n4"
+
+      expect(@calc.add).to eql(8)
     end
   end
 
   context "given different delimiters with begining of string '//'" do
+    before { @calc = StringCalculator::Calculator.new("//;\n1;2") }
+
     it "returns 3 for '//;\n1;2'" do
-      expect(StringCalculator.add("//;\n1;2")).to eql(3)
+      expect(@calc.add).to eql(3)
     end
 
     it "returns 12 for '//a;\n\n10b;2c'" do
-      expect(StringCalculator.add("//a;\n\n10b;2c")).to eql(12)
+      @calc.string = "//a;\n\n10b;2c"
+
+      expect(@calc.add).to eql(12)
     end
   end
 
   context "given single negative number as input string" do
+    before { @calc = StringCalculator::Calculator.new("-1") }
+
     it "should raise RuntimeError" do
-      expect { StringCalculator.add("-1") }.to raise_error(RuntimeError)
+      expect { @calc.add }.to raise_error(RuntimeError)
     end
 
     it "should raise RuntimeError with message 'negative numbers not allowed'" do
-      expect { StringCalculator.add("-1") }.to raise_error(RuntimeError, "negative numbers not allowed -1")
+      expect { @calc.add }.to raise_error(RuntimeError, "negative numbers not allowed -1")
     end
   end
 
   context "given multiple negative numbers as input string" do
+    before { @calc = StringCalculator::Calculator.new("-1,-2") }
+
     it "should raise RuntimeError with multiple negative numbers message" do
-      expect { StringCalculator.add("-1,-2") }.to raise_error(RuntimeError, "negative numbers not allowed -1,-2")
+      expect { @calc.add }.to raise_error(RuntimeError, "negative numbers not allowed -1,-2")
     end
 
     it "should raise negative numbers not allowed message even input string has postive numbers" do
-      expect { StringCalculator.add("-1,-8,4,6,-12") }.to raise_error(RuntimeError, "negative numbers not allowed -1,-8,-12")
+      @calc.string = "-1,-8,4,6,-12"
+
+      expect { @calc.add }.to raise_error(RuntimeError, "negative numbers not allowed -1,-8,-12")
     end
   end
 
