@@ -70,12 +70,12 @@ RSpec.describe StringCalculator, "#add" do
   end
 
   context "given single negative number as input string" do
-    it "should not allow negative numbers" do
-      expect(StringCalculator.add("-1")).to eql(1)
+    it "should raise RuntimeError" do
+      expect { StringCalculator.add("-1") }.to raise_error(RuntimeError)
     end
 
-    it "should raise exception" do
-      expect { StringCalculator.add("-1") }.to raise_error
+    it "should raise RuntimeError with message 'negative numbers not allowed'" do
+      expect { StringCalculator.add("-1") }.to raise_error(RuntimeError, "negative numbers not allowed -1")
     end
   end
 

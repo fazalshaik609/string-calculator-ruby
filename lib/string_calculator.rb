@@ -2,6 +2,7 @@ module StringCalculator
 
   def self.add(string)
     return 0 if string.empty?
+    raise "negative numbers not allowed #{string}" if string.include?('-')
     
     split_string(string).sum(&:to_i)
   end
