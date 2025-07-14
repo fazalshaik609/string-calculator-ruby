@@ -1,7 +1,8 @@
-module StringCalculator
+# frozen_string_literal: true
 
+module StringCalculator
   class Calculator
-    attr_accessor :string 
+    attr_accessor :string
 
     def initialize(string = '')
       @string = string
@@ -17,7 +18,7 @@ module StringCalculator
     private
 
     def split_string
-      extra_lines = @string[0,2]
+      extra_lines = @string[0, 2]
       delimiter = delimiter(extra_lines)
       @string.gsub("\n", delimiter).split(delimiter)
     end
@@ -30,9 +31,8 @@ module StringCalculator
       return unless @string.include?('-')
 
       numbers_str_arr = @string.split(',')
-      negative_numbers = numbers_str_arr.collect{|c| c if c.include? '-'}.compact.join(',')
-      raise "negative numbers not allowed #{negative_numbers}" 
+      negative_numbers = numbers_str_arr.collect { |c| c if c.include? '-' }.compact.join(',')
+      raise "negative numbers not allowed #{negative_numbers}"
     end
   end
-
 end

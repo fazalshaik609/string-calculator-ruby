@@ -1,34 +1,35 @@
-require 'string_calculator'
+# frozen_string_literal: true
+
 require 'debug'
+require 'string_calculator'
 
-RSpec.describe StringCalculator, "#add" do
-
-  context "given an empty string" do
+RSpec.describe StringCalculator, '#add' do
+  context 'given an empty string' do
     before { @calc = StringCalculator::Calculator.new }
 
-    it "returns 0" do
+    it 'returns 0' do
       expect(@calc.add).to eql(0)
     end
   end
 
-  context "given single input string" do
-    before { @calc = StringCalculator::Calculator.new("1") }
+  context 'given single input string' do
+    before { @calc = StringCalculator::Calculator.new('1') }
 
     it "returns 1 for '1'" do
       expect(@calc.add).to eql(1)
     end
   end
 
-  context "given two inputs string" do
-    before { @calc = StringCalculator::Calculator.new("1,2") }
+  context 'given two inputs string' do
+    before { @calc = StringCalculator::Calculator.new('1,2') }
 
     it "returns 3 for '1,2'" do
       expect(@calc.add).to eql(3)
     end
   end
 
-  context "given any number of inputs string" do
-    before { @calc = StringCalculator::Calculator.new("4,2,3") }
+  context 'given any number of inputs string' do
+    before { @calc = StringCalculator::Calculator.new('4,2,3') }
 
     it "returns 9 for '4,2,3'" do
       expect(@calc.add).to eql(9)
@@ -44,7 +45,7 @@ RSpec.describe StringCalculator, "#add" do
 
     it "supports newlines and returns 6 for '1\n2,3'" do
       @calc.string = "1\n2,3"
-      
+
       expect(@calc.add).to eql(6)
     end
 
@@ -75,30 +76,29 @@ RSpec.describe StringCalculator, "#add" do
     end
   end
 
-  context "given single negative number as input string" do
-    before { @calc = StringCalculator::Calculator.new("-1") }
+  context 'given single negative number as input string' do
+    before { @calc = StringCalculator::Calculator.new('-1') }
 
-    it "should raise RuntimeError" do
+    it 'should raise RuntimeError' do
       expect { @calc.add }.to raise_error(RuntimeError)
     end
 
     it "should raise RuntimeError with message 'negative numbers not allowed'" do
-      expect { @calc.add }.to raise_error(RuntimeError, "negative numbers not allowed -1")
+      expect { @calc.add }.to raise_error(RuntimeError, 'negative numbers not allowed -1')
     end
   end
 
-  context "given multiple negative numbers as input string" do
-    before { @calc = StringCalculator::Calculator.new("-1,-2") }
+  context 'given multiple negative numbers as input string' do
+    before { @calc = StringCalculator::Calculator.new('-1,-2') }
 
-    it "should raise RuntimeError with multiple negative numbers message" do
-      expect { @calc.add }.to raise_error(RuntimeError, "negative numbers not allowed -1,-2")
+    it 'should raise RuntimeError with multiple negative numbers message' do
+      expect { @calc.add }.to raise_error(RuntimeError, 'negative numbers not allowed -1,-2')
     end
 
-    it "should raise negative numbers not allowed message even input string has postive numbers" do
-      @calc.string = "-1,-8,4,6,-12"
+    it 'should raise negative numbers not allowed message even input string has postive numbers' do
+      @calc.string = '-1,-8,4,6,-12'
 
-      expect { @calc.add }.to raise_error(RuntimeError, "negative numbers not allowed -1,-8,-12")
+      expect { @calc.add }.to raise_error(RuntimeError, 'negative numbers not allowed -1,-8,-12')
     end
   end
-
 end
