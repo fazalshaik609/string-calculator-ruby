@@ -7,12 +7,13 @@ module StringCalculator
   end
 
   def self.split_string(string)
-    delimiter = string[0,2]
-    string.gsub("\n", delimiter(delimiter)).split(delimiter(delimiter))
+    extra_lines = string[0,2]
+    delimiter = delimiter(extra_lines)
+    string.gsub("\n", delimiter).split(delimiter)
   end
 
-  def self.delimiter(delimiter)
-    delimiter == '//' ? ';' : ','
+  def self.delimiter(extra_lines)
+    extra_lines == '//' ? ';' : ','
   end
 
 end
